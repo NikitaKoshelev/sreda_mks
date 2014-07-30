@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" class="form-horizontal col-lg-8 col-lg-offset-2">
+{% csrf_token %}
+    <fieldset>
+        <legend>Построение графика</legend>
+        <div class="form-group">
+          <label for="id_date" class="col-lg-2 col-lg-offset-2 control-label">Выберите дату</label>
+          <div class="col-lg-4">
+            <select class="form-control" id="id_date" name="date" disabled>
+              <option>{{ date }}</option>
+            </select>
+            <br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="id_files" class="col-lg-2 col-lg-offset-2 control-label">Выберите файл</label>
+          <div class="col-lg-4">
+            <select class="form-control" id="id_files" name="files" disabled>
+              <option>{{ param }}</option>
+            </select>
+            <br>
+          </div>
+              <a href="/media/{{ file }}" class="btn btn-info btn-sm">Файл</a>
+        </div>
+        <div class="form-group">
+            <label for="id_labelX" class="col-lg-2 col-lg-offset-2 control-label">Ось Х</label>
+            <div class="col-lg-4">
+                <select class="form-control" id="id_labelX" name="labelX">
+                    {% for label in labels %}
+                    <option>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_labelY" class="col-lg-2 col-lg-offset-2 control-label">Ось Y</label>
+            <div class="col-lg-4">
+                <select class="form-control" id="id_labelY" name="labelY">
+                    {% for label in labels %}
+                    {% if label != 'Время' %}
+                    <option>{{ label }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_color" class="col-lg-2 col-lg-offset-2 control-label">Выберите цвет</label>
+            <div class="col-lg-4">
+                <select class="form-control" id="id_color" name="color">
+                  <option>k: Черный</option>
+                  <option class="text-primary">b: Синий</option>
+                  <option class="text-success">g: Зеленый</option>
+                  <option class="text-danger">r: Красный</option>
+                  <option class="text-info">c: Голубой</option>
+                  <option class="text-warning">y: Желтый</option>
+                </select>
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="id_marker" class="col-lg-2 col-lg-offset-2 control-label">Выберите маркер</label>
+            <div class="col-lg-4">
+                <select class="form-control" id="id_marker" name="marker">
+                    {% autoescape off %}
+                    <option>'None': Без маркера</option>
+                    <option>'*': Звезда</option>
+                    <option>'x': Крест</option>
+                    <option>'+': Плюс</option>
+                    <option>'.': Точка</option>
+                    <option>',': Пиксель</option>
+                    <option>'o': Круг</option>
+                    <option>'v': Треугольник вниз</option>
+                    <option>'^': Треугольник вверх</option>
+                    <option>'<': Треугольник влево</option>
+                    <option>'>': Треугольник вправо</option>
+                    <option>'8': Восьмиугольник</option>
+                    <option>'s': Квадрат</option>
+                    <option>'p': Пятиугольник</option>
+                    <option>'|': Вертикальная линия</option>
+                    <option>'_': Горизонтальная линия</option>
+                    {% endautoescape %}
+                </select>
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="id_linewidth" class="col-lg-4 control-label">Введите толщину линии</label>
+            <div class="col-lg-4">
+                <input type="number" class="form-control" name="linewidth" id="id_linewidth" placeholder="Дробная часть отделяется точкой">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 col-lg-offset-2 control-label">Включить легенду?</label>
+            <div class="col-lg-4">
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="legend" id="id_legend1" value="True">
+                  Да
+                </label>
+              </div>
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="legend" id="id_legend2" value="False" checked="">
+                    Нет
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_grid" class="col-lg-2 col-lg-offset-2 control-label">Шаг сетки</label>
+            <div class="col-lg-4">
+                <input type="number" name="grid" class="form-control" id="id_grid" placeholder="Минуты">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 col-lg-offset-1 control-label">Использовать интерполяцию?</label>
+            <div class="col-lg-4">
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="interpolation" id="id_interpolation1" value="True" checked="">
+                  Да
+                </label>
+              </div>
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="interpolation" id="id_interpolation2" value="False">
+                    Нет
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_step" class="col-lg-4 control-label">По скольким точкам строить график?</label>
+            <div class="col-lg-4">
+                <input type="number" class="form-control" name="step" id="id_step" placeholder="Введите количество точек">
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-6">
+            <button type="submit" class="btn btn-primary">Построить</button>
+          </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

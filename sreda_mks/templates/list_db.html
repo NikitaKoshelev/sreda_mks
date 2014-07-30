@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="col-lg-8 col-lg-offset-2">
+    {% for cm in CMs %}
+    <div class="row">
+    <div id="carousel-{{ cm.date|date:"d-m-Y" }}" class="carousel slide" data-ride="carousel" data-interval="10000">
+        <!-- Индикаторы -->
+        <ol class="carousel-indicators">
+          <li data-target="#mod" data-slide-to="0" class="active"></li>
+          <li data-target="#cmx" data-slide-to="1"></li>
+          <li data-target="#cmy" data-slide-to="2"></li>
+          <li data-target="#cmz" data-slide-to="3"></li>
+        </ol>
+        <!-- Содержимое слайдера (Обёртка для слайдов)-->
+        <div class="carousel-inner">
+          <div class="item active" id="mod">
+            <img src="/media/{{ cm.plot_mod }}" alt="Модуль">
+          </div>
+          <div class="item" id="cmx">
+            <img src="/media/{{ cm.plot_cmx }}" alt="CMX">
+          </div>
+          <div class="item" id="cmy">
+            <img src="/media/{{ cm.plot_cmy }}" alt="CMY">
+          </div>
+          <div class="item" id="cmz">
+            <img src="/media/{{ cm.plot_cmz }}" alt="CMZ">
+          </div>
+        </div>
+        <!-- Контролы -->
+        <a class="left carousel-control" href="#carousel-{{ cm.date|date:"d-m-Y" }}" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-{{ cm.date|date:"d-m-Y" }}" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

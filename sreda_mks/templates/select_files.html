@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" class="form-horizontal col-lg-8 col-lg-offset-2">
+{% csrf_token %}
+    <fieldset>
+        <legend>Построение графика</legend>
+        <div class="form-group">
+          <label for="id_date" class="col-lg-2 col-lg-offset-2 control-label">Выберите дату</label>
+          <div class="col-lg-4">
+            <select class="form-control" id="id_date" name="date">
+              {% for cm in CMs %}
+                <option>{{ cm }}</option>
+              {% endfor %}
+            </select>
+            <br>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="id_files" class="col-lg-2 col-lg-offset-2 control-label">Выберите файл</label>
+          <div class="col-lg-4">
+            <select class="form-control" id="id_files" name="files">
+              <option>Магнитометры</option>
+              <option>Кватернионы</option>
+              <option>Угловые скорости</option>
+            </select>
+            <br>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary">Выбрать</button>
+          </div>
+        </div>
+
+    </fieldset>
+</form>
+{% endblock %}
