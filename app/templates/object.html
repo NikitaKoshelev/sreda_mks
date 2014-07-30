@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="col-lg-8">
+    <img src="/media/{{ cm.plot_mod }}" alt="Модуль">
+    <img src="/media/{{ cm.plot_cmx }}" alt="CMX">
+    <img src="/media/{{ cm.plot_cmy }}" alt="CMY">
+    <img src="/media/{{ cm.plot_cmz }}" alt="CMZ">
+</div>
+{% endblock %}

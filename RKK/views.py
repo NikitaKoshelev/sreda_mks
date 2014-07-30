@@ -2,7 +2,7 @@
 from django.core.context_processors import csrf
 from django.contrib import auth
 from django.shortcuts import RequestContext
-from sreda_mks.forms import UploadFileForm
+from app.forms import UploadFileForm
 
 def base_context(view):
     def new_view(request, *args, **kwargs):

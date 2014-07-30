@@ -13,5 +13,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(ur'^admin/', include(admin.site.urls)),
-    url(ur'^Среда-МКС/', include('sreda_mks.urls')),
+    url(ur'^Среда-МКС/', include('app.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
